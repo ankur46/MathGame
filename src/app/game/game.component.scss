@@ -1,0 +1,80 @@
+.start-view {
+  height: 100vh;
+  cursor: pointer;
+  background-color: #000;
+  h1 {
+    color: #fff;
+    font-family: "Play", serif !important;
+    font-size: 50px;
+    font-weight: 700;
+  }
+}
+.game-view {
+  background-color: #000;
+  height: 100vh;
+  .array-view {
+    div {
+      border: 1px solid #757070;
+      padding: 15px;
+      border-radius: 13px;
+      background: #353532;
+      box-shadow: beige;
+      box-shadow: inset 0px 0px 1px 4px black;
+    }
+    span {
+      font-size: 35px;
+      color: #fff;
+    }
+  }
+  .choosing-card {
+    cursor: pointer;
+    height: 300px;
+    width: 300px;
+    border-radius: 50px;
+    background: #001e4c;
+    .box-number-view {
+      font-size: 150px;
+      color: #fff;
+    }
+    &:hover{
+      box-shadow: 0 3px 14px 2px rgba(27, 125, 239, 0.53), 0 5px 5px -3px rgba(84, 110, 179, 0.63);
+    }
+  }
+  .box-label{
+    font-size: 30px;
+    color: #716f6b;
+  }
+  .player-view{
+    span{
+      color: #fff;
+    }
+    .player-label{
+      span{
+        font-size: 50px;
+      }
+      .playerBorder{
+        border: 2px solid #04ff00;
+      }
+    }
+    .vsLabel{
+      border: 1px solid #757070;
+      padding: 26px;
+      border-radius: 13px;
+      background: #353532;
+      box-shadow: beige;
+      box-shadow: inset 0px 0px 1px 4px black;
+    }
+  }
+}
+
+.winner-view{
+  background-color: #000;
+  height: 100vh;
+  span{
+    font-size: 50px;
+    color: #fff;
+  }
+  .winner-score{
+    color:red;
+  }
+}

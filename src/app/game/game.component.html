@@ -1,0 +1,44 @@
+<div class="start-view" *ngIf="start" (click)="start = !start" fxLayout="row" fxLayoutAlign="center center">
+  <h1>START GAME</h1>
+</div>
+<div *ngIf="!winnerView && !start" class="game-view" fxLayout="column" fxLayoutAlign="start stretch">
+  <div fxFlex="20%" fxLayout="row" fxLayoutAlign="center center" class="array-view">
+    <div>
+      <span>{{viewArr}}</span>
+    </div>
+  </div>
+  <div fxFlex="40%" fxLayout="row" fxLayoutAlign="center center">
+    <div fxFlex="50%" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+      <div fxLayout="row" fxLayoutAlign="center center" id="start" class="choosing-card" (click)="firstBox()">
+        <span  *ngIf="!firstActive" style="font-size: 65px; color: #716f6b;">Tap</span>
+        <span class="box-number-view" *ngIf="firstActive">{{boxNumber}}</span>
+      </div>
+      <span class="box-label">Front</span>
+    </div>
+    <div fxFlex="50%" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+      <div fxLayout="row" fxLayoutAlign="center center" id="end" class="choosing-card" (click)="secondBox()">
+        <span  *ngIf="!secondActive" style="font-size: 65px; color: #716f6b;">Tap</span>
+        <span class="box-number-view" *ngIf="secondActive">{{boxNumber}}</span>
+      </div>
+      <span class="box-label">Back</span>
+    </div>
+  </div>
+  <div fxFlex="40%" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="30px" class="player-view">
+    <div fxFlex fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="50px" class="player-label">
+      <span [class.playerBorder] = "active === 'firstPlayer'" style="padding: 20px;">Player 1</span>
+      <span style="color:#fbf502">{{firstPlayer.total}}</span>
+    </div>
+    <div class="vsLabel">
+      <span style="font-size: 100px;">v/s</span>
+    </div>
+    <div fxFlex fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="50px" class="player-label">
+      <span [class.playerBorder] = "active === 'secondPlayer'" style="padding: 20px;">Player 2</span>
+      <span style="color:#fbf502">{{secondPlayer.total}}</span>
+    </div>
+  </div>
+</div>
+<div *ngIf="winnerView" class="winner-view" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="50px">
+  <span *ngIf="winnerObj.name !== 'Draw'">Winner is <span class="winner-score">{{winnerObj.name}}</span> with score of <span class="winner-score">{{winnerObj.score}}</span></span>
+  <span *ngIf="winnerObj.name === 'Draw'">OOPS, Match is Drawn</span>
+  <span (click)="refreshScreen()" style="cursor: pointer;color: #06e657;">Try Again</span>
+</div>
