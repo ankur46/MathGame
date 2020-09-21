@@ -1,0 +1,130 @@
+<div [ngClass]="viewClass" fxLayout="column" fxLayoutAlign="start center">
+  <div class="inner-container">
+    <mat-tab-group>
+      <mat-tab label="Service Request">
+        <form [formGroup]="viewForm">
+          <div class="tab-inner-view" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px">
+            <div class="view-border" fxFlex="15%" fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="10px">
+              <div class="nfv" fxFlex="70%" fxLayout="row" fxLayoutAlign="space-between center">
+                <div fxFlex fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="10px">
+                  <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
+                    <span class="nfv-header">SR #WKP6MPY</span>
+                    <div class="online-view"></div>
+                  </div>
+                  <span class="nfv-sub" class="nfv-sub">Sep 14 2020 | 1:15 PM</span>
+                </div>
+                <div fxFlex fxLayout="row" fxLayoutAlign="center center">
+                  <div class="dropdown-view" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="5px" [matMenuTriggerFor]="menu">
+                    <span>{{selectedDropDownValue}}</span>
+                    <span style="font-size: 13px;">&#8897;</span>
+                  </div>
+                  <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="setDropDownValue('Material Order')">Material Order</button>
+                    <button mat-menu-item (click)="setDropDownValue('Sample Order')">Sample Order</button>
+                    <button mat-menu-item (click)="setDropDownValue('Final Order')">Final Order</button>
+                  </mat-menu>
+                </div>
+              </div>
+              <div class="nsv" fxFlex fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="10px" (click)="picker.open()">
+                <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
+                  <span class="nfv-sub">Scheduled On</span>
+                  <mat-icon>event</mat-icon>
+                </div>
+                <span class="nfv-header">{{scheduledDate}}</span>
+                <mat-form-field style="visibility: hidden;">
+                  <input matInput [matDatepicker]="picker" placeholder="Choose a date" 
+                  (dateChange)="onDateChange($event)">
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker touchUi #picker></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="view-border form-view" fxFlex="55%" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px">
+              <div fxFlex="25%" fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="15px">
+                <div fxFlex fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="5px">
+                  <span>Type</span>                  
+                  <mat-form-field appearance="outline" floatLabel="always">
+                    <mat-select placeholder="Ex. Maintenance" formControlName="type" (selectionChange)="checkSubType()">
+                      <mat-option *ngFor="let val of type" [value]="val">
+                        {{val}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <div *ngIf="errObj._error" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px" class="error-state">
+                    <mat-icon>cancel</mat-icon>
+                    <span>{{this.errObj.message}}</span>
+                  </div>
+                </div>
+                <div fxFlex fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="5px">
+                  <span>Sub Type</span>
+                  <mat-form-field appearance="outline" floatLabel="always">
+                    <mat-select placeholder="Ex. Service at home" formControlName="subType">
+                      <mat-option *ngFor="let val of subType" [value]="val">
+                        {{val}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div fxFlex="25%" fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="15px">
+                <div fxFlex fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="5px">
+                  <span>Payment Status</span>
+                  <mat-form-field appearance="outline" floatLabel="always">
+                    <mat-select placeholder="Ex. paid" formControlName="paymentStatus">
+                      <mat-option *ngFor="let val of paymentStatus" [value]="val">
+                        {{val}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div fxFlex fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="5px">
+                  <span>Assigned To</span>
+                  <mat-form-field appearance="outline" floatLabel="always">
+                    <input matInput placeholder="Manager" formControlName="assignedTo">
+                  </mat-form-field>
+                </div>
+              </div>
+              <div fxFlex fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="5px">
+                <span>Description</span>
+                <mat-form-field appearance="outline" floatLabel="always">
+                  <textarea rows="6" matInput placeholder="Ex. Collect Receipt after payment"
+                    formControlName="description"></textarea>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="view-border image" fxFlex="16%" fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="10px">
+              <div fxFlex="20%" class="image-view" fxLayout="row" fxLayoutAlign="center center">
+                <mat-icon>add</mat-icon>
+              </div>
+              <div fxFlex="20%" class="image-view added-image" fxLayout="row" fxLayoutAlign="center center">
+                <img fxFlex fxFlexFill style="object-fit: contain;"  src="https://b1.pngbarn.com/png/190/666/macos-app-icons-android-png-clip-art.png">
+                <mat-icon class="delete-view">cancel</mat-icon>
+              </div>
+            </div>
+            <div class="view-border footer" fxFlex="10%" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
+              <button mat-flat-button color="primary" [disabled]="!viewForm.valid" (click)="checkUpdate()">Update</button>
+              <div fxFlex fxLayout="row" fxLayoutAlign="start center">
+                <button mat-icon-button (click)="changeTheme()" *ngIf="_view">
+                  <mat-icon style="color: #fff;">brightness_2</mat-icon>
+                </button>
+                <button mat-icon-button (click)="changeTheme()" *ngIf="!_view">
+                  <mat-icon style="color: #fff;">wb_sunny</mat-icon>
+                </button>
+              </div>
+            </div>            
+          </div>
+        </form>
+      </mat-tab>
+      <mat-tab label="Activity Log">
+        <div class="tab-inner-view" fxLayout="row" fxLayoutAlign="center center">
+          <span style="font-size: 25px;">No Content Present!</span>
+        </div>
+      </mat-tab>
+      <mat-tab label="Spare Items">
+        <div class="tab-inner-view" fxLayout="row" fxLayoutAlign="center center">
+          <span style="font-size: 25px;">No Content Present!</span>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>
